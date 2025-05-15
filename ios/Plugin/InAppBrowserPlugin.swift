@@ -76,7 +76,7 @@ public class InAppBrowserPlugin: CAPPlugin, CAPBridgedPlugin {
         }
 
         navigationController.modalPresentationStyle = .pageSheet
-        
+
         // Set up sheet presentation controller for iOS 15+
         if #available(iOS 15.0, *) {
             if let sheet = navigationController.sheetPresentationController {
@@ -86,13 +86,14 @@ public class InAppBrowserPlugin: CAPPlugin, CAPBridgedPlugin {
                 sheet.prefersEdgeAttachedInCompactHeight = true
             }
         }
-        
+
         // Configure view controller for proper sheet presentation
         if let webViewController = self.webViewController {
             // Add additional bottom inset to prevent content from being cut off
-            webViewController.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+            webViewController.additionalSafeAreaInsets = UIEdgeInsets(
+                top: 0, left: 0, bottom: 30, right: 0)
         }
-        
+
         self.bridge?.viewController?.present(
             navigationController, animated: isAnimated,
             completion: {
@@ -412,7 +413,7 @@ public class InAppBrowserPlugin: CAPPlugin, CAPBridgedPlugin {
             self.webViewController = WKWebViewController.init(
                 url: url, headers: headers, isInspectable: isInspectable, credentials: credentials,
                 preventDeeplink: preventDeeplink, blankNavigationTab: toolbarType == "blank")
-            
+
             // Web view content insets are configured in presentView method
 
             guard let webViewController = self.webViewController else {
