@@ -90,8 +90,9 @@ public class InAppBrowserPlugin: CAPPlugin, CAPBridgedPlugin {
         // Configure view controller for proper sheet presentation
         if let webViewController = self.webViewController {
             // Add additional bottom inset to prevent content from being cut off
+            let bottomInset = self.bridge?.viewController?.view.safeAreaInsets.bottom ?? 30
             webViewController.additionalSafeAreaInsets = UIEdgeInsets(
-                top: 0, left: 0, bottom: 30, right: 0)
+                top: 0, left: 0, bottom: bottomInset, right: 0)
         }
 
         self.bridge?.viewController?.present(
